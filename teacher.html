@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>히스토리 RPG - 교사 대시보드</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="teacher.css">
+</head>
+
+<body>
+    <div class="bg-shape circle-1"></div>
+    <div class="bg-shape circle-2"></div>
+
+    <div id="app" class="teacher-app">
+        <!-- 로그인 필요 알림 화면 -->
+        <section id="auth-screen" class="screen main-auth active"
+            style="max-width: 480px; margin: 0 auto; text-align: center;">
+            <div class="glass-card login-card mt-10">
+                <div class="logo-icon" style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+                <h2 style="margin-bottom: 0.5rem; color: #fff;">교사 권한 인증 필요</h2>
+                <p class="subtitle" style="margin-bottom: 2rem;">선생님 비밀번호를 입력해주세요.</p>
+
+                <div class="input-group">
+                    <input type="password" id="teacher-pwd-input" placeholder="비밀번호 입력" autocomplete="off">
+                    <button id="teacher-login-btn" class="primary-btn glow-effect">인증하기</button>
+                    <button id="back-to-student-btn" class="outline-btn" style="margin-top: 0.5rem; width: 100%;">학생
+                        화면으로 돌아가기</button>
+                    <p id="teacher-login-err" class="error-msg">비밀번호가 일치하지 않습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 대시보드 화면 -->
+        <section id="teacher-dashboard" class="screen" style="display: none;">
+            <header class="dash-header glass-card">
+                <div class="user-info">
+                    <div class="avatar-sm">🎓</div>
+                    <div>
+                        <h2>교사 대시보드</h2>
+                        <div class="user-badges">
+                            <span class="badge" style="background: rgba(255,255,255,0.2);">관리자 모드</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button id="student-mode-btn" class="sm-btn outline-btn"
+                        style="border-color: rgba(59, 130, 246, 0.4); color: #93c5fd;">학생 메뉴 복귀</button>
+                    <button id="teacher-logout-btn" class="sm-btn outline-btn"
+                        style="border-color: rgba(239, 68, 68, 0.4); color: #fca5a5;">권한 해제</button>
+                </div>
+            </header>
+
+            <!-- 통계 섹션 -->
+            <div class="dashboard-grid teacher-grid">
+                <!-- 상단 3개 통계 -->
+                <div class="glass-card stat-box slide-in-up" style="animation-delay: 0.1s;">
+                    <div class="stat-title">오늘 승인 수</div>
+                    <div class="stat-value" id="stat-today-subs">0</div>
+                </div>
+                <div class="glass-card stat-box slide-in-up" style="animation-delay: 0.2s;">
+                    <div class="stat-title">누적 승인 수</div>
+                    <div class="stat-value int-text" id="stat-approved-subs">0</div>
+                </div>
+                <div class="glass-card stat-box slide-in-up" style="animation-delay: 0.3s;">
+                    <div class="stat-title">학생 평균 레벨</div>
+                    <div class="stat-value str-text" id="stat-avg-level">Lv. 0</div>
+                </div>
+            </div>
+
+            <!-- TOP 3 학생 목록 섹션 -->
+            <div class="glass-card full-width-card slide-in-up" style="margin-bottom: 2rem; animation-delay: 0.35s;">
+                <div class="card-header" style="margin-bottom: 1rem;">
+                    <h3>🏆 최우수 탐험가 TOP 3 (전투력 기준)</h3>
+                </div>
+                <div class="top3-list" id="top3-container"
+                    style="display: flex; gap: 1rem; justify-content: space-around; flex-wrap: wrap;">
+                    <!-- JS에서 렌더링 -->
+                    <div style="color: #94a3b8; text-align: center; width: 100%;">데이터가 없습니다.</div>
+                </div>
+            </div>
+
+            <!-- 학생 통합 능력치 관리 섹션 -->
+            <div class="glass-card full-width-card slide-in-up" style="margin-bottom: 2rem; animation-delay: 0.38s;">
+                <div class="card-header" style="margin-bottom: 1rem;">
+                    <h3>👥 전체 학생 능력치 직접 수정</h3>
+                </div>
+                <div class="student-manager-list" id="student-manager-container">
+                    <!-- JS에서 학생별 관리 카드 렌더링 -->
+                    <div style="color: #94a3b8; text-align: center; padding: 1rem;">제출 기록이 있는 학생부터 표시됩니다.</div>
+                </div>
+            </div>
+
+            <!-- 제출 목록 목록 섹션 -->
+            <div class="glass-card full-width-card slide-in-up" style="animation-delay: 0.4s;">
+                <div class="card-header">
+                    <h3>📝 학생 탐험 일지 제출 목록</h3>
+                </div>
+
+                <div class="submission-list" id="submission-container">
+                    <!-- JS에서 제출 아이템들이 렌더링 됩니다 -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 교사 로직 스크립트 연결 -->
+    <script src="teacher.js"></script>
+</body>
+
+</html>

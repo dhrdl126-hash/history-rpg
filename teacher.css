@@ -1,0 +1,392 @@
+/* ===== 교사 전용 추가 CSS ===== */
+.teacher-app {
+    max-width: 1200px;
+}
+
+/* 통계 그리드 (3단) */
+.teacher-grid {
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 2rem;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 2rem;
+}
+
+.stat-box .stat-title {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.stat-box .stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+}
+
+.full-width-card {
+    grid-column: 1 / -1;
+}
+
+/* 제출 목록 (리스트형) */
+.submission-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+/* 스크롤바 커스텀 */
+.submission-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.submission-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.submission-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.submission-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.submission-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    transition: transform 0.2s;
+}
+
+.submission-item:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.sub-left {
+    flex: 1;
+    padding-right: 2rem;
+}
+
+.sub-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.sub-id {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.sub-time {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.sub-content {
+    color: #cbd5e1;
+    line-height: 1.6;
+    font-size: 1rem;
+    white-space: pre-wrap;
+}
+
+.sub-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    min-width: 120px;
+}
+
+.status-badge {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+}
+
+.status-pending {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fcd34d;
+}
+
+.status-approved {
+    background: rgba(16, 185, 129, 0.2);
+    color: #6ee7b7;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.approve-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    padding: 0.6rem;
+    font-size: 0.9rem;
+}
+
+.approve-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* 능력치 배분 UI */
+.stat-adjuster {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 0.8rem;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.stat-adjuster input[type="number"] {
+    width: 50px;
+    padding: 0.2rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-family: inherit;
+}
+
+.stat-adjuster label {
+    font-weight: 600;
+}
+
+/* TOP3 명예의 전당 카드 */
+.top3-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.top3-rank {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.rank-1 {
+    color: #fbbf24;
+}
+
+/* Gold */
+.rank-2 {
+    color: #94a3b8;
+}
+
+/* Silver */
+.rank-3 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.stat-result {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.manager-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 850px) {
+    .teacher-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .submission-item {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .sub-right {
+        width: 100%;
+        align-items: flex-start;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .status-badge {
+        width: auto;
+    }
+}
+
+/* 학생 관리자 리스트 */
+.student-manager-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.student-manager-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.student-manager-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.student-manager-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.manager-card {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+}
+
+.manager-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.manager-id {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.manager-lvl {
+    color: #fcd34d;
+    font-weight: 600;
+}
+
+.stat-sliders-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.slider-group {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.slider-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+    color: #e2e8f0;
+}
+
+/* 커스텀 슬라이더 */
+.stat-range {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    outline: none;
+    margin: 10px 0;
+}
+
+.stat-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.stat-diff {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.stat-result {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.manager-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+/* ✅ 강제 클릭 가능 패치: 승인 버튼이 안 눌릴 때 무조건 통과시키기 */
+
+.submission-item,
+.sub-left,
+.sub-right {
+    position: relative !important;
+    z-index: 1 !important;
+    pointer-events: auto !important;
+}
+
+button,
+.btn,
+.primary-btn,
+.approve-btn {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 999999 !important;
+    cursor: pointer !important;
+}
+
+/* 글래스/오버레이가 가상요소(::before/::after)로 덮는 케이스 차단 */
+.submission-item::before,
+.submission-item::after,
+.sub-right::before,
+.sub-right::after,
+.sub-left::before,
+.sub-left::after,
+.card::before,
+.card::after,
+body::before,
+body::after {
+    pointer-events: none !important;
+}
