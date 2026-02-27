@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>히스토리 RPG 대시보드</title>
+    <!-- 구글 폰트 불러오기 (초현대적이고 깔끔한 폰트) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 배경 이펙트 요소 -->
+    <div class="bg-shape circle-1"></div>
+    <div class="bg-shape circle-2"></div>
+
+    <div id="app">
+        <!-- 1. 로그인 화면 -->
+        <section id="login-screen" class="screen active">
+            <div class="glass-card login-card">
+                <div class="logo-icon">📜</div>
+                <h1>History RPG</h1>
+                <p class="subtitle">학생용 탐험 대시보드</p>
+                
+                <div class="input-group">
+                    <label for="student-id">학번을 입력하여 로그인하세요</label>
+                    <input type="text" id="student-id" placeholder="예: 26jls1101" autocomplete="off" maxlength="15">
+                    <button id="login-btn" class="primary-btn glow-effect">입장하기 ⚔️</button>
+                </div>
+                <p id="login-err" class="error-msg">올바른 학번 형식을 입력해주세요 (6자 이상).</p>
+            </div>
+        </section>
+
+        <!-- 2. 대시보드 화면 -->
+        <section id="dashboard-screen" class="screen">
+            <header class="dash-header glass-card">
+                <div class="user-info">
+                    <div class="avatar-sm">🛡️</div>
+                    <h2><span id="display-id" class="highlight-text"></span> 님의 프로필</h2>
+                </div>
+                <button id="logout-btn" class="sm-btn outline-btn">로그아웃</button>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- 능력치 시각화 카드 -->
+                <div class="glass-card stats-card slide-in-left">
+                    <div class="card-header">
+                        <h3>📊 나의 능력치</h3>
+                        <span class="badge">Lv. 12</span>
+                    </div>
+                    
+                    <div class="stats-container">
+                        <div class="stat-group">
+                            <div class="stat-label">
+                                <span class="stat-name">💪 힘 (Strength)</span>
+                                <span class="stat-val str-text" id="stat-str-val">0</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill str-fill" id="stat-str"></div></div>
+                        </div>
+                        
+                        <div class="stat-group">
+                            <div class="stat-label">
+                                <span class="stat-name">🧠 지력 (Intelligence)</span>
+                                <span class="stat-val int-text" id="stat-int-val">0</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill int-fill" id="stat-int"></div></div>
+                        </div>
+                        
+                        <div class="stat-group">
+                            <div class="stat-label">
+                                <span class="stat-name">✨ 매력 (Charisma)</span>
+                                <span class="stat-val cha-text" id="stat-cha-val">0</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill cha-fill" id="stat-cha"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 활동 기록 (텍스트 에어리어) -->
+                <div class="glass-card activity-card slide-in-right">
+                    <div class="card-header">
+                        <h3>📜 탐험 일지 (활동 기록)</h3>
+                    </div>
+                    <p class="section-desc">오늘 수업 혹은 자습을 통해 얻은 역사적 지식과 깨달음을 기록하세요.</p>
+                    
+                    <textarea id="activity-log" placeholder="오늘은 어떤 역사를 탐구했나요? (내용은 브라우저에 자동 저장됩니다)"></textarea>
+                    
+                    <div class="action-row">
+                        <span id="save-status"></span>
+                        <button id="save-activity-btn" class="primary-btn sm-btn">기록 저장하기 💾</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 네비게이션 액션 (갤러리 이동) -->
+            <div class="nav-actions slide-in-up">
+                <button id="view-gallery-btn" class="secondary-btn glow-effect">
+                    👥 다른 학생(더미) 카드 갤러리 보기
+                </button>
+            </div>
+        </section>
+
+        <!-- 3. 더미 학생 갤러리 화면 -->
+        <section id="gallery-screen" class="screen">
+            <header class="dash-header glass-card push-down">
+                <button id="back-to-dash-btn" class="sm-btn outline-btn">⬅ 대시보드로 복귀</button>
+                <h2>동료 탐험가 갤러리</h2>
+                <div style="width: 100px;"></div> <!-- 정렬용 여백 -->
+            </header>
+            
+            <div class="gallery-grid" id="gallery-container">
+                <!-- JS에서 더미 카드 6개가 여기에 주입됩니다 -->
+            </div>
+        </section>
+    </div>
+
+    <!-- 로직 스크립트 연결 -->
+    <script src="app.js"></script>
+</body>
+</html>

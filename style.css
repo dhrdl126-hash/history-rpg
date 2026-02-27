@@ -1,0 +1,402 @@
+/* ===== CSS 변수 및 기본 테마 설정 ===== */
+:root {
+    /* 심도있는 다크/우주/마법 테마 색상 */
+    --bg-color-1: #0f172a; /* 딥 블루 */
+    --bg-color-2: #1e1b4b; /* 딥 퍼플 */
+    
+    /* 글래스모피즘 효과 변수 */
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    
+    /* 포인트 컬러 */
+    --primary: #8b5cf6;
+    --primary-hover: #7c3aed;
+    --secondary: #3b82f6;
+    
+    /* 텍스트 컬러 */
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    
+    /* 스탯 컬러 */
+    --str-color: #ef4444; /* 힘: 빨강 */
+    --int-color: #3b82f6; /* 지력: 파랑 */
+    --cha-color: #f59e0b; /* 매력: 주황/금색 */
+}
+
+/* ===== 리셋 및 전역 스타일 ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(135deg, var(--bg-color-1), var(--bg-color-2));
+    color: var(--text-main);
+    min-height: 100vh;
+    font-family: 'Noto Sans KR', 'Outfit', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 배경 장식 애니메이션 효과 */
+.bg-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: 0;
+    animation: float 15s infinite ease-in-out alternate;
+}
+.circle-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(139, 92, 246, 0.15); /* 보라색 빛 */
+    top: -100px;
+    left: -100px;
+}
+.circle-2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(59, 130, 246, 0.15); /* 파란색 빛 */
+    bottom: -50px;
+    right: -50px;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+/* ===== 레이아웃 ===== */
+#app {
+    width: 100%;
+    max-width: 1100px;
+    padding: 2rem;
+    position: relative;
+    z-index: 1; /* 구형 배경 위로 뜨게 설정 */
+}
+
+/* ===== 화면(Screen) 전환 애니메이션 ===== */
+.screen {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: translateY(20px);
+}
+.screen.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== 글래스모피즘 카드 공통 디자인 ===== */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ===== 타이포그래피 ===== */
+h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #a855f7, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+}
+h2 { font-size: 1.8rem; font-weight: 700; }
+h3 { font-size: 1.4rem; font-weight: 600; color: #e2e8f0; margin: 0; }
+p.subtitle { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2.5rem; }
+.highlight-text { color: var(--primary); font-family: 'Outfit', sans-serif;}
+
+/* ===== 로그인 화면 ===== */
+#login-screen {
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: center;
+}
+.logo-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+}
+.input-group label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+input[type="text"], textarea {
+    width: 100%;
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.25);
+    color: #fff;
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+input[type="text"]:focus, textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* ===== 버튼 스타일 ===== */
+button {
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.primary-btn {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 1.2rem;
+    font-size: 1.1rem;
+    width: 100%;
+}
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.5);
+}
+.secondary-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+}
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+}
+.sm-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+    width: auto;
+}
+.outline-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--text-muted);
+}
+.outline-btn:hover {
+    color: white;
+    border-color: white;
+    background: rgba(255, 255, 255, 0.05);
+}
+.error-msg {
+    color: #ef4444;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    display: none;
+}
+
+/* ===== 대시보드 헤더 ===== */
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem 2rem;
+}
+.user-info { display: flex; align-items: center; gap: 1rem; }
+.avatar-sm {
+    font-size: 1.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    width: 50px; height: 50px;
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 50%;
+}
+
+/* ===== 대시보드 메인 그리드 ===== */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* 카드 공통 헤더 */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.badge {
+    background: rgba(139, 92, 246, 0.2);
+    color: #c4b5fd;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+.section-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+/* ===== 능력치 막대(Stats) ===== */
+.stats-container { display: flex; flex-direction: column; gap: 1.5rem; }
+.stat-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+.stat-name { color: #e2e8f0; }
+.stat-val { font-family: 'Outfit', sans-serif; font-size: 1.2rem; font-weight: 800; }
+.str-text { color: var(--str-color); }
+.int-text { color: var(--int-color); }
+.cha-text { color: var(--cha-color); }
+
+.progress-bar {
+    height: 14px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+}
+.progress-fill {
+    height: 100%;
+    width: 0%; /* JS로 제어됨 */
+    border-radius: 20px;
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+}
+/* 막대 차트 애니메이션 / 그라데이션 */
+.progress-fill::after {
+    content: ''; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    animation: shimmer 2s infinite;
+}
+@keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+.str-fill { background: linear-gradient(90deg, #991b1b, var(--str-color)); }
+.int-fill { background: linear-gradient(90deg, #1e3a8a, var(--int-color)); }
+.cha-fill { background: linear-gradient(90deg, #92400e, var(--cha-color)); }
+
+/* ===== 활동 기록 UI ===== */
+textarea {
+    height: 200px;
+    resize: none;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+.action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#save-status {
+    color: #10b981;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* 네비게이션 액션 */
+.nav-actions { text-align: center; }
+
+/* ===== 갤러리 화면 ===== */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.8rem;
+}
+.dummy-card {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    border-left: 1px solid rgba(255,255,255,0.2);
+}
+.dummy-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+.dummy-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+.dummy-id { 
+    font-family: 'Outfit', sans-serif; 
+    font-weight: 700; 
+    font-size: 1.3rem; 
+    margin-bottom: 0.3rem; 
+    color: #fff; 
+}
+.dummy-title { 
+    color: var(--primary); 
+    font-size: 0.9rem; 
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+}
+.dummy-stats { 
+    display: flex; 
+    justify-content: center; 
+    gap: 0.8rem; 
+    width: 100%;
+}
+.dummy-stats span { 
+    background: rgba(0,0,0,0.3); 
+    padding: 0.4rem 0.8rem; 
+    border-radius: 8px; 
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ===== 모바일 반응형 ===== */
+@media (max-width: 850px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 2.8rem; }
+    .dash-header { flex-direction: column; gap: 1rem; text-align: center;}
+}
