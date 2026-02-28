@@ -84,8 +84,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const galElements = {
         btnBack: document.getElementById('back-to-dash-btn'),
-        container: document.getElementById('gallery-container')
+        container: document.getElementById('gallery-container'),
+
+        // 갤러리 상세 프로필 모달
+        gpModal: document.getElementById('gallery-profile-modal'),
+        gpCloseBtn: document.getElementById('close-gp-modal-btn'),
+        gpImgBox: document.getElementById('gp-img-box'),
+        gpId: document.getElementById('gp-id'),
+        gpLevel: document.getElementById('gp-level'),
+        gpTitle: document.getElementById('gp-title'),
+        gpStr: document.getElementById('gp-str'),
+        gpInt: document.getElementById('gp-int'),
+        gpCha: document.getElementById('gp-cha'),
+        gpStrFill: document.getElementById('gp-str-fill'),
+        gpIntFill: document.getElementById('gp-int-fill'),
+        gpChaFill: document.getElementById('gp-cha-fill'),
+        gpLife: document.getElementById('gp-life'),
+        gpAchievement: document.getElementById('gp-achievement')
     };
+
 
     let currentUser = null;
 
@@ -305,7 +322,26 @@ document.addEventListener('DOMContentLoaded', () => {
             animateValue(dashElements.displayPower, 0, totalPower, 1500);
         }, 300);
 
-        // 로컬 스토리지에서 이전 탐험 일지 불러오기
+        // 일일 교훈 일지 제출 횟수 초기화 및 UI 업데이트
+        const todayStr = new Date().toLocaleDateString();
+        let dailyData = JSON.parse(localStorage.getItem(`historyRpg_dailyLog_${currentUser}`)) || { date: todayStr, count: 0 };
+        if (dailyData.date !== todayStr) {
+            dailyData = { date: todayStr, count: 0 };
+            localStorage.setItem(`historyRpg_dailyLog_${currentUser}`, JSON.stringify(dailyData));
+        }
+
+        const limitTextEl = document.getElementById('log-limit-text');
+        if (limitTextEl) {
+            const remainingCount = Math.max(0, 3 - dailyData.count);
+            limitTextEl.textContent = `(오늘 남은 제출 횟수: ${remainingCount}/3)`;
+            if (remainingCount === 0) {
+                limitTextEl.style.color = '#ef4444';
+            } else {
+                limitTextEl.style.color = '#94a3b8';
+            }
+        }
+
+        // 로컬 스토리지에서 이전 교훈 일지 불러오기
         const savedLog = localStorage.getItem(`historyRpg_log_${currentUser}`);
         if (savedLog !== null) {
             dashElements.activityLog.value = savedLog;
@@ -462,12 +498,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // === 로직: 탐험 일지 저장 ======
+    // === 로직: 교훈 일지 저장 ======
     dashElements.btnSaveLog.addEventListener('click', () => {
         if (!currentUser) return;
 
         const logContent = dashElements.activityLog.value;
         if (!logContent.trim()) return;
+
+        // 제출 가능 횟수 검증
+        const todayStr = new Date().toLocaleDateString();
+        let dailyData = JSON.parse(localStorage.getItem(`historyRpg_dailyLog_${currentUser}`)) || { date: todayStr, count: 0 };
+        if (dailyData.date !== todayStr) {
+            dailyData = { date: todayStr, count: 0 };
+        }
+
+        if (dailyData.count >= 3) {
+            dashElements.saveStatus.textContent = "❌ 오늘은 더 이상 제출할 수 없습니다.";
+            dashElements.saveStatus.style.color = "#ef4444";
+            dashElements.saveStatus.style.opacity = '1';
+            setTimeout(() => {
+                dashElements.saveStatus.style.opacity = '0';
+                setTimeout(() => { dashElements.saveStatus.style.color = '#10b981'; }, 300);
+            }, 2500);
+            return;
+        }
+
+        // 카운트 증가 및 저장
+        dailyData.count += 1;
+        localStorage.setItem(`historyRpg_dailyLog_${currentUser}`, JSON.stringify(dailyData));
+
+        const limitTextEl = document.getElementById('log-limit-text');
+        if (limitTextEl) {
+            const remainingCount = Math.max(0, 3 - dailyData.count);
+            limitTextEl.textContent = `(오늘 남은 제출 횟수: ${remainingCount}/3)`;
+            if (remainingCount === 0) limitTextEl.style.color = '#ef4444';
+        }
 
         // 임시 저장용
         localStorage.setItem(`historyRpg_log_${currentUser}`, logContent);
@@ -574,6 +639,12 @@ document.addEventListener('DOMContentLoaded', () => {
         switchScreen(screens.dashboard);
     });
 
+    if (galElements.gpCloseBtn) {
+        galElements.gpCloseBtn.addEventListener('click', () => {
+            galElements.gpModal.style.display = 'none';
+        });
+    }
+
     // === 로직: 동료 갤러리 렌더링 ===
     const renderGallery = () => {
         galElements.container.innerHTML = '';
@@ -597,6 +668,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const card = document.createElement('div');
             card.className = 'glass-card dummy-card';
+            card.style.cursor = 'pointer'; // 클릭 가능하도록 커서 변경
             // 등장 애니메이션 딜레이 효과
             card.style.animation = `fadeUp 0.5s ease forwards ${index * 0.1}s`;
             card.style.opacity = '0';
@@ -624,6 +696,52 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span>✨ ${student.cha}</span>
                 </div>
             `;
+            // 상세 프로필 모달 열기 이벤트
+            card.addEventListener('click', () => {
+                galElements.gpId.textContent = student.id;
+                galElements.gpLevel.textContent = `Lv. ${student.level}`;
+                galElements.gpTitle.textContent = student.title;
+                // 바 초기화
+                galElements.gpStrFill.style.width = '0%';
+                galElements.gpIntFill.style.width = '0%';
+                galElements.gpChaFill.style.width = '0%';
+
+                // 애니메이션
+                animateValue(galElements.gpStr, 0, student.str, 1000);
+                animateValue(galElements.gpInt, 0, student.int, 1000);
+                animateValue(galElements.gpCha, 0, student.cha, 1000);
+
+                setTimeout(() => {
+                    galElements.gpStrFill.style.width = `${student.str}%`;
+                    galElements.gpIntFill.style.width = `${student.int}%`;
+                    galElements.gpChaFill.style.width = `${student.cha}%`;
+                }, 100);
+
+                const savedProfile = JSON.parse(localStorage.getItem(`historyRpg_profile_${student.id}`));
+                let lifeText = "기록 없음";
+                let achievementText = "기록 없음";
+
+                if (savedProfile && savedProfile.bio) {
+                    if (typeof savedProfile.bio === 'object') {
+                        lifeText = savedProfile.bio.life || "기록 없음";
+                        achievementText = savedProfile.bio.achievement || "기록 없음";
+                    } else if (typeof savedProfile.bio === 'string') {
+                        lifeText = savedProfile.bio;
+                    }
+                }
+
+                galElements.gpLife.textContent = lifeText;
+                galElements.gpAchievement.textContent = achievementText;
+
+                if (student.img) {
+                    galElements.gpImgBox.innerHTML = `<img src="${student.img}" style="width:100%; height:100%; object-fit:cover;">`;
+                } else {
+                    galElements.gpImgBox.innerHTML = `<span style="font-size: 3rem;">👤</span>`;
+                }
+
+                galElements.gpModal.style.display = 'flex';
+            });
+
             galElements.container.appendChild(card);
         });
     };

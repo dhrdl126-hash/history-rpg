@@ -241,19 +241,21 @@ document.addEventListener("DOMContentLoaded", () => {
     subs[idx].approved = true;
     saveSubmissions(subs);
 
-    // EXP 증가 로직
-    const expKey = `historyRpg_exp_${studentId}`;
-    const cur = parseInt(localStorage.getItem(expKey) || "0", 10) || 0;
-    localStorage.setItem(expKey, String(cur + 10));
-
     // 배분된 추가 능력치 부여 (input 요소에서 추출)
     const strInput = document.getElementById(`adj-str-${submissionId}`);
     const intInput = document.getElementById(`adj-int-${submissionId}`);
     const chaInput = document.getElementById(`adj-cha-${submissionId}`);
+    const expInput = document.getElementById(`adj-exp-${submissionId}`); // 커스텀 EXP
 
     const dStr = parseInt(strInput ? strInput.value : 0) || 0;
     const dInt = parseInt(intInput ? intInput.value : 0) || 0;
     const dCha = parseInt(chaInput ? chaInput.value : 0) || 0;
+    const dExp = parseInt(expInput ? expInput.value : 10) || 0; // 디폴트 10
+
+    // EXP 증가 로직
+    const expKey = `historyRpg_exp_${studentId}`;
+    const cur = parseInt(localStorage.getItem(expKey) || "0", 10) || 0;
+    localStorage.setItem(expKey, String(cur + dExp));
 
     let savedStats = safeJsonParse(localStorage.getItem(`historyRpg_stats_${studentId}`), { str: 0, int: 0, cha: 0 });
     savedStats.str += dStr;
@@ -267,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
       studentId: studentId,
       timestamp: new Date().toLocaleString(),
       delta: { str: dStr, int: dInt, cha: dCha },
-      exp: 10,
+      exp: dExp,
       note: "교사승인"
     });
     localStorage.setItem(LOGS_KEY, JSON.stringify(approvalLogs));
@@ -461,7 +463,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const list = subs.slice().reverse();
     if (list.length === 0) {
       el.container.innerHTML =
-        `<div style="text-align:center; padding: 2rem; color: #94a3b8;">아직 제출된 탐험 일지가 없습니다.</div>`;
+        `<div style="text-align:center; padding: 2rem; color: #94a3b8;">아직 제출된 교훈 일지가 없습니다.</div>`;
       return;
     }
 
@@ -476,6 +478,10 @@ document.addEventListener("DOMContentLoaded", () => {
       let actionHtml = '';
       if (!sub.approved) {
         actionHtml = `
+              <div class="stat-adjuster">
+                  <label>🔥 EXP</label>
+                  <input type="number" id="adj-exp-${sub.id}" value="10" min="0" max="100">
+              </div>
               <div class="stat-adjuster">
                   <label>💪 힘</label>
                   <input type="number" id="adj-str-${sub.id}" value="1" min="0" max="5">

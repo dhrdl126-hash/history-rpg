@@ -1,9 +1,9 @@
-/* ===== CSS 변수 및 기본 테마 설정 ===== */
+﻿/* ===== CSS 변??�?기본 ?�마 ?�정 ===== */
 :root {
-    /* 심도있는 다크/우주/마법 테마 색상 */
+    /* ?�도?�는 ?�크/?�주/마법 ?�마 ?�상 */
     --bg-color-1: #0f172a;
 
-    /* === 대시보드 - 프로필 내역 스타일 === */
+    /* === ?�?�보??- ?�로???�역 ?��???=== */
     .profile-details {
         display: flex;
         align-items: center;
@@ -54,7 +54,7 @@
         overflow: hidden;
     }
 
-    /* === 모달(Modal) 공통 스타일 === */
+    /* === 모달(Modal) 공통 ?��???=== */
     .modal-overlay {
         position: fixed;
         top: 0;
@@ -81,38 +81,40 @@
         border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* 갤러리 섹션 */
+    /* 갤러�??�션 */
     --bg-color-2: #1e1b4b;
-    /* 딥 퍼플 */
+    /* ???�플 */
 
-    /* 글래스모피즘 효과 변수 */
+    /* 글?�스모피�??�과 변??*/
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.08);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
-    /* 포인트 컬러 */
+    /* ?�인??컬러 */
     --primary: #8b5cf6;
     --primary-hover: #7c3aed;
     --secondary: #3b82f6;
 
-    /* 텍스트 컬러 */
+    /* ?�스??컬러 */
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
 
-    /* 스탯 컬러 */
+    /* ?�탯 컬러 */
     --str-color: #ef4444;
-    /* 힘: 빨강 */
+    /* ?? 빨강 */
     --int-color: #3b82f6;
-    /* 지력: 파랑 */
+    /* 지?? ?�랑 */
     --cha-color: #f59e0b;
     /* 매력: 주황/금색 */
 }
 
-/* ===== 리셋 및 전역 스타일 ===== */
+/* ===== 리셋 �??�역 ?��???===== */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 
 body {
@@ -127,7 +129,7 @@ body {
     position: relative;
 }
 
-/* 배경 장식 애니메이션 효과 */
+/* 배경 ?�식 ?�니메이???�과 */
 .bg-shape {
     position: absolute;
     border-radius: 50%;
@@ -140,7 +142,7 @@ body {
     width: 400px;
     height: 400px;
     background: rgba(139, 92, 246, 0.15);
-    /* 보라색 빛 */
+    /* 보라??�?*/
     top: -100px;
     left: -100px;
 }
@@ -149,7 +151,7 @@ body {
     width: 300px;
     height: 300px;
     background: rgba(59, 130, 246, 0.15);
-    /* 파란색 빛 */
+    /* ?��???�?*/
     bottom: -50px;
     right: -50px;
     animation-direction: alternate-reverse;
@@ -165,17 +167,17 @@ body {
     }
 }
 
-/* ===== 레이아웃 ===== */
+/* ===== ?�이?�웃 ===== */
 #app {
     width: 100%;
     max-width: 1100px;
     padding: 2rem;
     position: relative;
     z-index: 1;
-    /* 구형 배경 위로 뜨게 설정 */
+    /* 구형 배경 ?�로 ?�게 ?�정 */
 }
 
-/* ===== 화면(Screen) 전환 애니메이션 ===== */
+/* ===== ?�면(Screen) ?�환 ?�니메이??===== */
 .screen {
     display: none;
     opacity: 0;
@@ -202,7 +204,7 @@ body {
     }
 }
 
-/* ===== 글래스모피즘 카드 공통 디자인 ===== */
+/* ===== 글?�스모피�?카드 공통 ?�자??===== */
 .glass-card {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
@@ -214,7 +216,7 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ===== 타이포그래피 ===== */
+/* ===== ?�?�포그래??===== */
 h1 {
     font-family: 'Outfit', sans-serif;
     font-size: 3.5rem;
@@ -250,7 +252,7 @@ p.subtitle {
     font-family: 'Outfit', sans-serif;
 }
 
-/* ===== 로그인 화면 ===== */
+/* ===== 로그???�면 ===== */
 #login-screen {
     max-width: 480px;
     margin: 0 auto;
@@ -290,6 +292,7 @@ p.subtitle {
 }
 
 input[type="text"],
+input[type="password"],
 textarea {
     width: 100%;
     padding: 1.2rem;
@@ -304,13 +307,14 @@ textarea {
 }
 
 input[type="text"]:focus,
+input[type="password"]:focus,
 textarea:focus {
     border-color: var(--primary);
     box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
     background: rgba(0, 0, 0, 0.4);
 }
 
-/* ===== 버튼 스타일 ===== */
+/* ===== 버튼 ?��???===== */
 button {
     border: none;
     border-radius: 12px;
@@ -375,7 +379,7 @@ button {
     display: none;
 }
 
-/* ===== 대시보드 헤더 ===== */
+/* ===== ?�?�보???�더 ===== */
 .dash-header {
     display: flex;
     justify-content: space-between;
@@ -407,7 +411,7 @@ button {
     border-radius: 50%;
 }
 
-/* ===== 대시보드 메인 그리드 ===== */
+/* ===== ?�?�보??메인 그리??===== */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -415,7 +419,7 @@ button {
     margin-bottom: 2rem;
 }
 
-/* 카드 공통 헤더 */
+/* 카드 공통 ?�더 */
 .card-header {
     display: flex;
     justify-content: space-between;
@@ -458,7 +462,7 @@ button {
     margin-bottom: 1.5rem;
 }
 
-/* ===== 능력치 막대(Stats) ===== */
+/* ===== ?�력�?막�?(Stats) ===== */
 .stats-container {
     display: flex;
     flex-direction: column;
@@ -506,14 +510,14 @@ button {
 .progress-fill {
     height: 100%;
     width: 0%;
-    /* JS로 제어됨 */
+    /* JS�??�어??*/
     border-radius: 20px;
     transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     overflow: hidden;
 }
 
-/* 막대 차트 애니메이션 / 그라데이션 */
+/* 막�? 차트 ?�니메이??/ 그라?�이??*/
 .progress-fill::after {
     content: '';
     position: absolute;
@@ -547,7 +551,7 @@ button {
     background: linear-gradient(90deg, #92400e, var(--cha-color));
 }
 
-/* ===== 활동 기록 UI ===== */
+/* ===== ?�동 기록 UI ===== */
 textarea {
     height: 200px;
     resize: none;
@@ -568,12 +572,12 @@ textarea {
     transition: opacity 0.3s;
 }
 
-/* 네비게이션 액션 */
+/* ?�비게이???�션 */
 .nav-actions {
     text-align: center;
 }
 
-/* ===== 갤러리 화면 ===== */
+/* ===== 갤러�??�면 ===== */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -642,7 +646,7 @@ textarea {
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* ===== 모바일 반응형 ===== */
+/* ===== 모바??반응??===== */
 @media (max-width: 850px) {
     .dashboard-grid {
         grid-template-columns: 1fr;
@@ -659,3 +663,4 @@ textarea {
     }
 } 
  
+
