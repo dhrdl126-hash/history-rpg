@@ -10,14 +10,14 @@
         gap: 1rem;
         margin-top: 0.5rem;
         background: rgba(0, 0, 0, 0.15);
-        padding: 1rem;
+        padding: 1.2rem;
         border-radius: 10px;
         border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .profile-img-box {
-        width: 60px;
-        height: 60px;
+        width: 120px;
+        height: 120px;
         border-radius: 12px;
         background: rgba(255, 255, 255, 0.1);
         display: flex;
@@ -35,7 +35,7 @@
     }
 
     .profile-img-placeholder {
-        font-size: 1.5rem;
+        font-size: 2.2rem;
         color: #94a3b8;
     }
 
@@ -49,7 +49,7 @@
         color: #e2e8f0;
         margin-bottom: 0.5rem;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
@@ -67,7 +67,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 1rem;
+        padding: 1.2rem;
     }
 
     .modal-content {
@@ -230,7 +230,7 @@ h1 {
 }
 
 h2 {
-    font-size: 1.8rem;
+    font-size: 2.3rem;
     font-weight: 700;
 }
 
@@ -383,15 +383,15 @@ button {
 .dash-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 2rem;
     padding: 1.5rem 2rem;
 }
 
 .user-info {
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    align-items: flex-start;
+    gap: 1.5rem;
 }
 
 .user-badges {
@@ -401,10 +401,10 @@ button {
 }
 
 .avatar-sm {
-    font-size: 1.8rem;
+    font-size: 2.3rem;
     background: rgba(255, 255, 255, 0.1);
-    width: 50px;
-    height: 50px;
+    width: 65px;
+    height: 65px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -601,8 +601,8 @@ textarea {
 }
 
 .dummy-avatar {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     margin-bottom: 1rem;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
